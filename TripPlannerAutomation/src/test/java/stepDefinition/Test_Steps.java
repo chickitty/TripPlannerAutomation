@@ -53,9 +53,15 @@ public class Test_Steps {
 		TripPlannerPage.txtbox_search_input_To.sendKeys(ToLocation);
 		Reporter.log("Entered data into \"To\" Trip textbox\n\r");
 
+		Thread.sleep(10);
+		
 		//click "Go" button
-		TripPlannerPage.btn_Go.click();
+		//TripPlannerPage.btn_Go.click();
+		TripPlannerPage.clickTripPlannerGo();
 		Reporter.log("Clicked button \"Go\" to calculate Trip\n\r");
+		
+		
+		
 	}
 
 	@Then("^a list of trips should be provided$")
