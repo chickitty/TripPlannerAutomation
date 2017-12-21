@@ -5,16 +5,20 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
 
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import transportinfo.PageObjects.TripPlannerPage;
-import webBrowserDrivers.BrowserDrivers;
+import webBrowser.BrowserDrivers;
+import webBrowser.BrowserScreenshot;
 
 public class Test_Steps {
 
@@ -52,7 +56,12 @@ public class Test_Steps {
 		//input to "To" box
 		TripPlannerPage.setSearchInputToField(ToLocation);
 		Reporter.log("Entered data into \"To\" Trip textbox\n\r");
-		Assert.assertEquals(TripPlannerPage.txtbox_search_input_To.getAttribute("value"), ToLocation);
+		try {
+			Assert.assertEquals(TripPlannerPage.txtbox_search_input_To.getAttribute("value"), ToLocation);
+		} catch (Exception e) {
+			BrowserScreenshot.getScreenShot(driver);
+		}
+		
 		
 		//click "Go" button
 		TripPlannerPage.clickTripPlannerGo();
@@ -75,5 +84,23 @@ public class Test_Steps {
 		}
 		 */
 	}
-
-}
+	
+	@After
+    public void afterScenario()
+    {
+		driver.quit();
+    }
+	
+	
+	@After
+	public void embedScreenshot(Scenario scenario) throws Exception {
+	    if (scenario.isFailed()) {
+	        try {
+	        	BrowserScreenshot.getScreenShot(driver, scenario);
+	        } catch (WebDriverException wde) {
+	            System.err.println(wde.getMessage());
+	        } catch (ClassCastException cce) {
+	            cce.printStackTrace();}
+	        }
+	    }
+	} 
