@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Reporter;
+
 
 public class TripPlannerPage extends TripPlannerTemplate
 {
@@ -46,7 +46,6 @@ public class TripPlannerPage extends TripPlannerTemplate
 		//click "Go" button
 		//goButton.click();
 		btn_Go.click();
-		Reporter.log("Clicked button \"Go\" to calculate Trip\n\r");
 		
 		//validate the button has been clicked
 		

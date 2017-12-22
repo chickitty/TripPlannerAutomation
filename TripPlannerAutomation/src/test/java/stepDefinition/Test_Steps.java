@@ -3,13 +3,14 @@ package stepDefinition;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Assert;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
-import org.testng.Reporter;
+
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -30,8 +31,8 @@ public class Test_Steps {
 	public void Phileas_is_planning_a_trip() throws Throwable 
 	{
 		
-		//driver = BrowserDrivers.getInternetExplorerDriver();
-		driver = BrowserDrivers.getGeckoDriver();
+		driver = BrowserDrivers.getInternetExplorerDriver();
+		//driver = BrowserDrivers.getGeckoDriver();
 
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
@@ -49,13 +50,11 @@ public class Test_Steps {
 		TripPlannerPage.setSearchInputFromField(FromLocation.toLowerCase());
 		//for some reason Internet Explorer send lowercase n instead of uppercase N?? to lower case should fix this
 		//TripPlannerPage.setSearchInputFromField(FromLocation);
-		Reporter.log("Entered data into \"From\" Trip textbox.");
 		Assert.assertEquals(TripPlannerPage.txtbox_search_input_From.getAttribute("value"), FromLocation.toLowerCase());
 		//Assert.assertEquals(TripPlannerPage.txtbox_search_input_From.getAttribute("value"), FromLocation);
 
 		//input to "To" box
 		TripPlannerPage.setSearchInputToField(ToLocation);
-		Reporter.log("Entered data into \"To\" Trip textbox\n\r");
 		try {
 			Assert.assertEquals(TripPlannerPage.txtbox_search_input_To.getAttribute("value"), ToLocation);
 		} catch (Exception e) {
