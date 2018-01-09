@@ -77,7 +77,7 @@ public class Test_Steps {
 	@After
     public void afterScenario()
     {
-		//driver.quit();
+		driver.quit();
     }
 	
 	
