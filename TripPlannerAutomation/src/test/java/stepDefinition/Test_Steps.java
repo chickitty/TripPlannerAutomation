@@ -1,8 +1,6 @@
 package stepDefinition;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.junit.Assert;
 
 import org.openqa.selenium.By;
@@ -10,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -24,6 +22,7 @@ import webBrowser.BrowserScreenshot;
 public class Test_Steps {
 
 	static WebDriver driver;
+	static WebDriverWait wait;
 
 	TripPlannerPage TripPlannerPage;
 
@@ -31,10 +30,9 @@ public class Test_Steps {
 	public void Phileas_is_planning_a_trip() throws Throwable 
 	{
 		
-		driver = BrowserDrivers.getInternetExplorerDriver();
+		//driver = BrowserDrivers.getInternetExplorerDriver();
 		//driver = BrowserDrivers.getGeckoDriver();
-
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver = BrowserDrivers.getChromeDriver();
 		
 		driver.get("https://transportnsw.info/trip");
 
@@ -47,23 +45,15 @@ public class Test_Steps {
 	public void he_executes_a_trip_plan_from_to(String FromLocation, String ToLocation) throws Throwable {
 
 		//input to "From" box
-		TripPlannerPage.setSearchInputFromField(FromLocation.toLowerCase());
-		//for some reason Internet Explorer send lowercase n instead of uppercase N?? to lower case should fix this
-		//TripPlannerPage.setSearchInputFromField(FromLocation);
-		Assert.assertEquals(TripPlannerPage.txtbox_search_input_From.getAttribute("value"), FromLocation.toLowerCase());
-		//Assert.assertEquals(TripPlannerPage.txtbox_search_input_From.getAttribute("value"), FromLocation);
+		//TripPlannerPage.setSearchInputFromField(FromLocation.toLowerCase());
+		TripPlannerPage.setSearchInputFromField(FromLocation);
 
 		//input to "To" box
 		TripPlannerPage.setSearchInputToField(ToLocation);
-		try {
-			Assert.assertEquals(TripPlannerPage.txtbox_search_input_To.getAttribute("value"), ToLocation);
-		} catch (Exception e) {
-			BrowserScreenshot.getScreenShot(driver);
-		}
-		
 		
 		//click "Go" button
 		TripPlannerPage.clickTripPlannerGo();
+		
 		
 	}
 
@@ -87,7 +77,7 @@ public class Test_Steps {
 	@After
     public void afterScenario()
     {
-		driver.quit();
+		//driver.quit();
     }
 	
 	
