@@ -20,13 +20,20 @@
 Feature: Trip Planner
   Use the Trip Planner to plot a journey from one place to another. 
 
-  @tag1
-  Scenario Outline: A trip request can be executed and results returned
+#  @tag1
+#  Scenario Outline: A trip request can be executed and results returned
+#    Given Phileas is planning a trip
+#    When he executes a trip plan from "<Station1>" to "<Station2>"
+#    Then a list of trips should be provided
+#Examples:
+#    | Station1 | Station2 |
+#    | North Sydney Station | Town Hall Station |
+#    | Town Hall Station | North Sydney Station |
+    
+      @tag1
+  Scenario: A trip request can be executed and results returned
     Given Phileas is planning a trip
-    When he executes a trip plan from "<Station1>" to "<Station2>"
+    When he executes a trip plan from "North Sydney Station" to "Town Hall Station"
     Then a list of trips should be provided
-Examples:
-    | Station1 | Station2 |
-    | North Sydney Station | Town Hall Station |
-    | Town Hall Station | North Sydney Station |
+    
     
